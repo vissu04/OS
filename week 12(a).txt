@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+#define MAX_BLOCKS 20
+
+int main() {
+    int n, i, j, fileNumber;
+    int blocks[MAX_BLOCKS], startBlock[MAX_BLOCKS], blockOccupied[MAX_BLOCKS][MAX_BLOCKS];
+    
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    
+    for (i = 0; i < n; i++) {
+        printf("Enter number of blocks occupied by file %d: ", i + 1);
+        scanf("%d", &blocks[i]);
+
+        printf("Enter the starting block of file %d: ", i + 1);
+        scanf("%d", &startBlock[i]);
+
+        // Allocate blocks starting from the starting block
+        for (j = 0; j < blocks[i]; j++) {
+            blockOccupied[i][j] = startBlock[i] + j;
+        }
+    }
+
+    // Display the file allocation table
+    printf("\nFilename\tStart Block\tLength\n");
+    for (i = 0; i < n; i++) {
+        printf("%d\t\t%d\t\t%d\n", i + 1, startBlock[i], blocks[i]);
+    }
+
+    // Ask user for the file number to display its details
+    printf("\nEnter file number to view details: ");
+    scanf("%d", &fileNumber);
+
+    // Validate the entered file number
+    if (fileNumber < 1 || fileNumber > n) {
+        printf("Invalid file number.\n");
+        return 1;
+    }
+
+    // Display the details of the selected file
+    printf("\nFile name is: %d", fileNumber);
+    printf("\nLength is: %d", blocks[fileNumber - 1]);
+    printf("\nBlocks occupied:");
+    for (i = 0; i < blocks[fileNumber - 1]; i++) {
+        printf(" %d", blockOccupied[fileNumber - 1][i]);
+    }
+    printf("\n");
+
+    return 0;
+}

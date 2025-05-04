@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+int global=10;
+int main()
+{
+    int local=20;
+    pid_t pid;
+    printf("before fork\n");
+    printf("pid=%d,global=%d,local=%d,getpid()",global,local);
+    pid=fork();
+    if(pid<0){
+    printf("Failed to create child process\n");
+    exit(1);
+    }
+    else if (pid==0){
+    printf("after fork(child process\n");
+    global++;
+    local++;
+    printf("child: pid=%d,global=%d,local=%d\n",getpid(),global,local);
+    exit(0);
+    }
+    else{
+        sleep(2);
+        printf("parent:pid=%d,global=%d,local=%d\n",getpid(),global,local);
+        exit(0);
+    }
+}

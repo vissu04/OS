@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+struct file {
+    char fname[10];
+    int start, size, block[10];
+} f[10];
+
+int main() {
+    int i, j, n;
+
+    printf("Enter no. of files: ");
+    scanf("%d", &n);
+
+    // Ensure size is within valid bounds for the block array.
+    for(i = 0; i < n; i++) {
+        printf("Enter file name: ");
+        scanf("%s", f[i].fname);
+        printf("Enter starting block: ");
+        scanf("%d", &f[i].start);
+        f[i].block[0] = f[i].start;
+        printf("Enter number of blocks: ");
+        scanf("%d", &f[i].size);
+
+        // Check if the size exceeds the limit of 10 blocks
+        if(f[i].size > 10) {
+            printf("Error: Maximum allowed blocks is 10.\n");
+            return 1;
+        }
+
+        printf("Enter block numbers: ");
+        for(j = 1; j < f[i].size; j++) {
+            scanf("%d", &f[i].block[j]);
+        }
+    }
+
+    // Display file allocation details
+    printf("File\tStart\tSize\tBlocks\n");
+    for(i = 0; i < n; i++) {
+        printf("%s\t%d\t%d\t", f[i].fname, f[i].start, f[i].size);
+        for(j = 0; j < f[i].size - 1; j++) {
+            printf("%d--->", f[i].block[j]);
+        }
+        printf("%d\n", f[i].block[j]);  // Print the last block number
+    }
+
+    return 0;
+}

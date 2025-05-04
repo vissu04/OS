@@ -1,0 +1,41 @@
+#include<stdio.h>
+void main(){
+int i,j,m,size,val[10][10],badd[20],limit[20],ladd;
+printf("Enter the size of the segment table:");
+scanf("%d",&size);
+for(i=0;i<size;i++){
+printf("\nEnter infor about segment %d",i+1);
+
+printf("\nEnter base address:");
+scanf("%d",&badd[i]);
+printf("\nEnter the limit:");
+scanf("%d",&limit[i]);
+for(j=0;j<limit[i];j++){
+printf("\nEnter %d address values:",badd[i]+j);
+scanf("%d",&val[i][j]);
+}}
+printf("\n\n****SEGMENT TABLE****");
+printf("\nseg.no\tbase\tlimit\n");
+for(i=0;i<size;i++)
+{
+printf("%d\t%d\t%d\n",i+1,badd[i],limit[i]);
+}
+printf("\nEnter segment no.::");
+scanf("%d",&i);
+if(i>=size)
+{
+printf("invalid");
+}
+
+else
+{
+printf("\nEnter the logical address:");
+scanf("%d",&ladd);
+if(ladd>=limit[i])
+printf("invalid");
+else
+{
+m=badd[i]+ladd;
+printf("\nmapped physical address is=%d",m);
+printf("\nthe value is %d ",val[i][ladd]);
+} }}

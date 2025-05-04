@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+int main() {
+    int pid[10], bt[10], wt[10], tat[10], n, twt = 0, ttat = 0, i;
+    float awt, atat;
+
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+
+    // Input burst times and assign process IDs
+    printf("\nEnter burst times:\n");
+    for (i = 0; i < n; i++) {
+        printf("Process %d: ", i + 1);
+        scanf("%d", &bt[i]);
+        pid[i] = i + 1;
+    }
+
+    // Initialize waiting and turnaround times for first process
+    wt[0] = 0;
+    tat[0] = bt[0];
+
+    // Calculate Waiting Time (WT) and Turnaround Time (TAT)
+    for (i = 1; i < n; i++) {
+        wt[i] = tat[i - 1];      // Wt of current process is the turnaround time of the previous process
+        tat[i] = bt[i] + wt[i];    // Turnaround time = Burst time + Waiting time
+    }
+
+    // Calculate total waiting and turnaround times
+    for (i = 0; i < n; i++) {
+        twt += wt[i];
+        ttat += tat[i];
+    }
+
+    // Compute averages
+    awt = (float)twt / n;
+    atat = (float)ttat / n;
+
+    // Print results with aligned columns
+    printf("\n-----------------------------------------------------\n");
+    printf("PID   Burst Time   Waiting Time   Turnaround Time\n");
+    printf("-----------------------------------------------------\n");
+    for (i = 0; i < n; i++) {
+        printf("%-5d %-12d %-14d %-15d\n", pid[i], bt[i], wt[i], tat[i]);
+    }
+    printf("-----------------------------------------------------\n");
+    printf("Average Waiting Time: %.2f\n", awt);
+    printf("Average Turnaround Time: %.2f\n", atat);
+
+    return 0;
+}
+
