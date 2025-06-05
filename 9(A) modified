@@ -1,0 +1,17 @@
+
+#include <stdio.h>
+int main() {
+    int a, i;
+    unsigned long long fact = 1;  // Use long long for big factorials
+    printf("Enter a number: ");
+    scanf("%d", &a);
+    if (a < 0) {
+        printf("Factorial is not defined for negative numbers.\n");
+    } else {
+        for (i = 2; i <= a; i++) {
+            fact *= i;
+        }
+        printf("Factorial of %d = %llu\n", a, fact);
+    }
+    return 0;
+}
